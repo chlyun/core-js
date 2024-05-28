@@ -4,7 +4,7 @@ const params = {
   host: 'localhost',
   port: 3000,
   open: false,
-  root: './client'
+  root: './client',
 };
 
-server.start(params)
+server.start(params);
