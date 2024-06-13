@@ -51,20 +51,33 @@ class Tiger extends Animal {
 
 const 호랑이 = new Tiger('호돌이');
 
-class Array extends Object {
-  constructor() {}
+// class Array extends Object{
 
-  forEach(callback, arg) {}
+//   constructor(){
 
-  reduce() {}
-  map() {}
+//   }
 
-  static isArray() {}
+//   forEach(callback,arg){
 
-  static from() {}
-}
+//   }
 
-new Array();
+//   reduce(){
+
+//   }
+//   map(){
+
+//   }
+
+//   static isArray(){
+
+//   }
+
+//   static from(){
+
+//   }
+// }
+
+// new Array()
 
 // Model   (데이터)
 // View    (랜더링)
