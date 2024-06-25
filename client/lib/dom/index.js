@@ -7,3 +7,4 @@ export * from './bindEvent.js';
 export * from './insert.js';
 export * from './css.js';
 export * from './clearContents.js';
+export * from './showAlert.js';
