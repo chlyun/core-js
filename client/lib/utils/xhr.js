@@ -67,7 +67,6 @@ function xhr({
 xhr.get = (url, 성공, 실패) => {
   xhr({ url, 성공, 실패 });
 };
-
 xhr.post = (url, body, 성공, 실패) => {
   xhr({
     method: 'POST',
@@ -77,7 +76,6 @@ xhr.post = (url, body, 성공, 실패) => {
     실패,
   });
 };
-
 xhr.put = (url, body, 성공, 실패) => {
   xhr({
     method: 'PUT',
@@ -87,7 +85,6 @@ xhr.put = (url, body, 성공, 실패) => {
     실패,
   });
 };
-
 xhr.delete = (url, 성공, 실패) => {
   xhr({
     method: 'DELETE',
@@ -97,45 +94,64 @@ xhr.delete = (url, 성공, 실패) => {
   });
 };
 
-xhr.post(
-  ENDPOINT,
-  (data) => {
-    // console.log(data);
-  },
-  (err) => {
-    // console.log(err);
-  }
-);
-
 //
 
 /* -------------------------------------------- */
 /*               xhr Promise 방식               */
 /* -------------------------------------------- */
 
-// xhr
-// .post(ENDPOINT)
-// .then()
-// .then()
+const defaultOptions = {
+  method: 'GET',
+  url: '',
+  body: null,
+  errorMessage: '서버와의 통신이 원활하지 않습니다.',
+  headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  },
+};
 
-function xhrPromise(method, url, body) {
+// enumerable => 열거 가능한 => for..of/ for..in
+// iterable   => 순환 가능한 => for..of
+// immutable  => 불변의
+
+// const arr = [1,2,3];
+// const newArr = [...arr,4]
+
+export function xhrPromise(options) {
+  const { method, url, body, headers, errorMessage } = {
+    ...defaultOptions,
+    ...options,
+    headers: {
+      ...defaultOptions.headers,
+      ...options.headers,
+    },
+  };
+
   const xhr = new XMLHttpRequest();
 
   xhr.open(method, url);
 
+  Object.entries(headers).forEach(([key, value]) => {
+    xhr.setRequestHeader(key, value);
+  });
+
   xhr.send(JSON.stringify(body));
 
-  new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     xhr.addEventListener('readystatechange', () => {
       if (xhr.readyState === 4) {
         if (xhr.status >= 200 && xhr.status < 400) {
-          // 성공
+          resolve(JSON.parse(xhr.response));
         } else {
-          // 실패
+          reject({ message: errorMessage });
         }
       }
     });
   });
 }
 
-xhrPromise('GET', ENDPOINT, { name: 'tiger' });
+xhrPromise.get = (url) => xhrPromise({ url });
+xhrPromise.post = (url, body) => xhrPromise({ url, body, method: 'POST' });
+xhrPromise.put = (url, body) => xhrPromise({ url, body, method: 'PUT' });
+xhrPromise.delete = (url) => xhrPromise({ url, method: 'DELETE' });
