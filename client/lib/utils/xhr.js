@@ -100,10 +100,10 @@ xhr.delete = (url, 성공, 실패) => {
 xhr.post(
   ENDPOINT,
   (data) => {
-    console.log(data);
+    // console.log(data);
   },
   (err) => {
-    console.log(err);
+    // console.log(err);
   }
 );
 
@@ -117,3 +117,25 @@ xhr.post(
 // .post(ENDPOINT)
 // .then()
 // .then()
+
+function xhrPromise(method, url, body) {
+  const xhr = new XMLHttpRequest();
+
+  xhr.open(method, url);
+
+  xhr.send(JSON.stringify(body));
+
+  new Promise((resolve, reject) => {
+    xhr.addEventListener('readystatechange', () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status >= 200 && xhr.status < 400) {
+          // 성공
+        } else {
+          // 실패
+        }
+      }
+    });
+  });
+}
+
+xhrPromise('GET', ENDPOINT, { name: 'tiger' });
