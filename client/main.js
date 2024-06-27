@@ -10,7 +10,7 @@ import {
   renderEmptyCard,
 } from './lib/index.js';
 
-const ENDPOINT = 'https://jsonplaceholder.typicode.com/users';
+const ENDPOINT = 'http://localhost:3000/users';
 
 // 1. user 데이터 fetch 해주세요.
 //    - tiger.get
