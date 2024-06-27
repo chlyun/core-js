@@ -67,9 +67,13 @@ function handleDeleteCard(e) {
 
   if (!button) return;
 
-  console.log(button.closest('article'));
+  const article = button.closest('article');
 
-  tiger.delete(`${ENDPOINT}/1`);
+  const index = article.dataset.index.slice(5);
+
+  console.log();
+
+  tiger.delete(`${ENDPOINT}/${index}`);
 }
 
 userCardInner.addEventListener('click', handleDeleteCard);
