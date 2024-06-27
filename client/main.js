@@ -5,6 +5,7 @@ import {
   delayP,
   getNode,
   changeColor,
+  clearContents,
   renderSpinner,
   renderUserCard,
   renderEmptyCard,
@@ -68,12 +69,13 @@ function handleDeleteCard(e) {
   if (!button) return;
 
   const article = button.closest('article');
-
   const index = article.dataset.index.slice(5);
 
-  console.log();
-
-  tiger.delete(`${ENDPOINT}/${index}`);
+  tiger.delete(`${ENDPOINT}/${index}`).then(() => {
+    // 요청 보내고 렌더링하기
+    clearContents(userCardInner);
+    renderUserList();
+  });
 }
 
 userCardInner.addEventListener('click', handleDeleteCard);
