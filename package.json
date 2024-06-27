@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node server/index.js",
-    "dev": "live-server client --host=localhost --port=3000 --no-browser --cors"
+    "dev": "live-server client --host=localhost --port=3000 --no-browser --cors",
+    "serve": "json-server server/data/data.json",
+    "all": "run-p dev serve"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +18,7 @@
     "globals": "^15.3.0",
     "json-server": "^0.17.4",
     "live-server": "^1.2.2",
+    "npm-run-all": "^4.1.5",
     "prettier": "^3.2.5"
   },
   "dependencies": {
